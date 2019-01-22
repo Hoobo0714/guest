@@ -77,8 +77,17 @@ WSGI_APPLICATION = 'guest.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE':'django.db.backends.mysql',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'NAME': 'guest',
+        'USER': 'root',
+        'PASSWORD': '123456',
+        'OPTIONS': {
+            'init_command': "SET default_storage_engine=INNODB",
+        },
     }
 }
 
