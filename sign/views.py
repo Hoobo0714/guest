@@ -63,4 +63,12 @@ def search_realname(request):
     username = request.session.get('user','')
     search_realname = request.GET.get('name','')
     guest_list =Guest.objects.filter(realname__contains=search_realname)
-    return render(request,'guest_manage.html',{'user':username,'guests':guest_list})
+    paginator = Paginator(guest_list,2)
+    page = request.GET.get('page')
+    try:
+        contracts = paginator.page(page)
+    except PageNotAnInteger:
+        contracts = paginator.page(1)
+    except EmptyPage:
+        contracts = paginator.page(paginator.num_pages)
+    return render(request,'guest_manage.html',{'user':username,'guests':contracts})
